@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>JQuery Task</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+        }
+
+        .wrapper {
+            width: 60px;
+            margin: 0 auto;
+        }
+
+        label {
+            float: left;
+            position: relative;
+            top: 12px;
+            margin-left: -200px;
+        }
+
+        input {
+            width: 320px;
+            font-size: 15px;
+            border: 1px solid black;
+            padding: 5px 5px 12px 5px;
+            border-radius: 10px;
+        }
+
+        #submitbtn {
+            padding: 12px;
+            width: 100px;
+
+        }
+
+        .formelement {
+            margin-bottom: 10px;
+        }
+
+        #submitbutton {
+            margin-left: 200px;
+            width: 130px;
+        }
+
+        #errorSpan1 {
+            color: green;
+            /* margin-left: -200px; */
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Error message span at the top -->
+    <span id="errorSpan" class="error"></span>
+    <span id="errorSpan1" class="error1"></span>
+    <div class="wrapper">
+        <div class="formelement">
+            <label for="Email">Email</label>
+            <input type="text" name="Email" id="Email">
+        </div>
+
+        <div class="formelement">
+            <label for="phoneno">Phone-Number</label>
+            <input type="text" name="phoneno" id="phoneno">
+        </div>
+
+        <div class="formelement">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+
+        <div class="formelement">
+            <label for="confirm-password">Confirm-Password</label>
+            <input type="password" name="confirm-password" id="confirm-password">
+        </div>
+        <input type="submit" id="submitbtn" value="Submit">
+    </div>
+    <script>
+        document.getElementById('submitbtn').addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Reset previous error messages
+            document.getElementById('errorSpan').textContent = '';
+
+            // Get form input values
+            var email = document.getElementById('Email').value;
+            var phone = document.getElementById('phoneno').value;
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm-password').value;
+
+            // Email validation
+            if (!isValidEmail(email)) {
+                document.getElementById('errorSpan').textContent = 'Invalid email address';
+                return;
+            }
+
+            // Phone number validation
+            if (!isValidPhone(phone)) {
+                document.getElementById('errorSpan').textContent = 'Invalid phone number';
+                return;
+            }
+
+            // Password validation
+            if (password.length < 8) {
+                document.getElementById('errorSpan').textContent = 'Password must be at least 8 characters long';
+                return;
+            }
+
+            // Confirm password validation
+            if (password !== confirmPassword) {
+                document.getElementById('errorSpan').textContent = 'Passwords do not match';
+                return;
+            }
+
+            // If all validations pass, show success message
+            document.getElementById('errorSpan1').textContent = 'You are Registered!';
+            var successSpan = document.getElementById('errorSpan');
+            successSpan.textContent = '';
+            successSpan.className = 'success';
+        });
+
+        // Email validation function
+        function isValidEmail(email) {
+            var regex = /^\S+@\S+\.\S+$/;
+            return regex.test(email);
+        }
+
+        // Phone number validation function
+        function isValidPhone(phone) {
+            var regex = /^\d{10}$/;
+            return regex.test(phone);
+        }
+    </script>
+</body>
+
+</html>
